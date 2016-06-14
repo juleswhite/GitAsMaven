@@ -14,7 +14,6 @@ dependencies {
 
 artifacts {
     archives jar
-    archives sourcesJar
 }
 
 task lookForArtifacts {
