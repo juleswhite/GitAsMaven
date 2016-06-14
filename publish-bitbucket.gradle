@@ -9,34 +9,17 @@ configurations {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
     deployLibrary "ar.com.synergian:wagon-git:0.2.0"
 }
 
-task androidJavadocs(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.sourceFiles
-}
-
-task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.sourceFiles
-}
-
-task androidJavadocsJar(type: Jar, dependsOn: androidJavadocs) {
-    classifier = 'javadoc'
-    from androidJavadocs.destinationDir
-}
-
 artifacts {
-    archives androidSourcesJar
-    archives androidJavadocsJar
+    archives jar
+    archives sourcesJar
 }
 
 task lookForArtifacts {
     doLast {
-        def artifactName = ARTIFACT_NAME + '-' + ARTIFACT_VERSION + '.aar'
+        def artifactName = ARTIFACT_NAME + '-' + ARTIFACT_VERSION + '.jar'
         def artifactPath = ARTIFACT_PACKAGE.replace(".", "/") + "/" + ARTIFACT_NAME + "/" + ARTIFACT_VERSION + "/" + artifactName
         def repositoryUrl = 'https://api.bitbucket.org/1.0/repositories/' + COMPANY + '/' + REPOSITORY_NAME + '/raw/releases/' + artifactPath
 
